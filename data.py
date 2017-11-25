@@ -4,6 +4,7 @@ import sklearn
 import os
 import glob, os
 import Loader
+from sklearn import preprocessing as skp
 
 class Data:
     """ Handles stats / save / load of each subclasses """
@@ -16,10 +17,16 @@ class Data:
             self.input_df = Loader.CSVLoader(name)
         else if fmt == 'AggregateExcel':
             self.input_df = Loader.AggregateExcelLoader(name)
-        
         # self.path = list(path + name + '/')
+
+class Sparser(Data):
     
-from sklearn import preprocessing as skp
+    def __init__(self, input_df):
+        def __init__(self, input_df):
+        # self.input_df = input_df
+        self.output_df = pd.NewDataFrame(0)
+        self.imitems = pd.Series(list(np.array()))
+        self.item = pd.Series(list())
 
 class Normalization(Data):
     
