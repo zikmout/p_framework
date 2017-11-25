@@ -5,7 +5,7 @@ import category_encoders as ce
 
 from sklearn import preprocessing as skp
 
-Class Normalization:
+class Normalization(Data):
     
     def __init__(self, input_df):
         self.input_df = input_df
