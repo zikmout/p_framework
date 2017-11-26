@@ -5,7 +5,7 @@ import data
 
 class Loader():
     """ Meant to handle loading input_df from different file types i.e. excel, csv, aggregade """
-    __init__(self, name):
+    def __init__(self, name):
         self.name = name
         self.input_df = pd.DataFrame()
     def load(self):
@@ -15,13 +15,13 @@ class CSVLoader(Loader):
     def __init__(self):
         super().__init__()
     def load(self):
-        self.input_df = pd.read_csv(Data.path + name + '.csv')
+        self.input_df = pd.read_csv(Data.path + name + '.csv', index_col=None, header=0)
 
 class ExcelLoader(Loader):
-    def __init__(self):
+    def __init__(self, name):
         super().__init__()
     def load(self):
-        self.input_df = pd.read_excel(Data.path + name + '.xlsx')
+        self.input_df = pd.read_excel(Data.path + name + '.xlsx', index_col=None, header=0)
 
 class AggregateExcelLoader(Loader):
     """ all files must have same colums for same format """

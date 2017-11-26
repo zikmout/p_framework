@@ -3,30 +3,30 @@ import pandas as pd
 import sklearn
 import os
 import glob, os
-import Loader
+import src.loader
 from sklearn import preprocessing as skp
 
 class Data:
     """ Handles stats / save / load of each subclasses """
     path = '/Users/xxx/Projects/p_framework/data/'
-    __init__(self, name, fmt):
+    def __init__(self, name, fmt):
         self.name = name
         if fmt == 'excel':
             self.input_df = Loader.ExcelLoader(name)
-        else if fmt == 'csv':
+        elif fmt == 'csv':
             self.input_df = Loader.CSVLoader(name)
-        else if fmt == 'AggregateExcel':
+        elif fmt == 'AggregateExcel':
             self.input_df = Loader.AggregateExcelLoader(name)
         # self.path = list(path + name + '/')
 
 class Sparser(Data):
     
     def __init__(self, input_df):
-        def __init__(self, input_df):
         # self.input_df = input_df
-        self.output_df = pd.NewDataFrame(0)
-        self.imitems = pd.Series(list(np.array()))
-        self.item = pd.Series(list())
+        # self.output_df = pd.NewDataFrame(0)
+        # self.imitems = pd.Series(list(np.array()))
+        # self.item = pd.Series(list())
+        pass
 
 class Normalization(Data):
     
@@ -42,7 +42,7 @@ class Normalization(Data):
         
     def purge_imitems(self):
         self.output_df = np.concat([self.output_df, self.imitems])
-        del.self.imitems()
+        # del.self.imitems()
     
     def auto_encoder(self, label, method, sparse_output=False):
         # self.item = self.input_df[label]
@@ -53,7 +53,7 @@ class Normalization(Data):
             self.item = self.input_df[label]
             if sub_method == 'dependant': lb = skp.LabelBinaryizer(neg_label=-1, \
             pos_label=1, sparse_output=sparse_output)
-            else if sub_method == 'independant': lb = skp.LabelBinaryizer(neg_label=0, \
+            elif sub_method == 'independant': lb = skp.LabelBinaryizer(neg_label=0, \
             pos_label=1, sparse_output=sparse_output)
             
             lb.fit(self.item)
@@ -64,18 +64,18 @@ class Normalization(Data):
                 return self.item
             return self.item
         
-        else if main_method == 'numerical':
+        elif main_method == 'numerical':
             self.item = self.input_df[label]
             scaler = skp.StandardScaler(copy=True, with_mean=True, \
             with_std=True).fit(self.item)
             if sub_method == 'dependant':
                 self.item = scaler.scale_
-            else if sub_method =='independant':
+            elif sub_method =='independant':
                 self.item = pd.get_dummies(data=self.input_df, columns=label)
                 self.item = scaler.transform(self.item)    
             return self.item
 
-        else if main_method == 'categorical'
+        elif main_method == 'categorical':
             # self.item = self.input_df[label]
 
             if sub_method == 'dependant_le':
@@ -85,14 +85,14 @@ class Normalization(Data):
                 self.item = le.fit_transform(self.item)
                 # or df.apply(LabelEncoder().fit_transform)
                 return self.item
-            else if sub_method == 'dependant_bd':
+            elif sub_method == 'dependant_bd':
                 self.item = self.input_df.select_dtypes(include=[label]).copy()
-                bd = ce.backward_difference.BackwardDifferenceEncoder(cols=[.join(label,'_type')])
+                bd = ce.backward_difference.BackwardDifferenceEncoder(cols=[''.join(label,'_type')])
                 bd.fit(self.item, verbose=1)
                 return self.item
                 # show ? bd.transform(self.item).iloc[]
-            else if sub_method == 'dependant_pe':
-                pe = ce.polynomialEncoder(cols=.join(label,'_type'))
+            elif sub_method == 'dependant_pe':
+                pe = ce.polynomialEncoder(cols=''.join(label,'_type'))
                 pe.fit(self.item, verbose=1)
                 return self.item
 
