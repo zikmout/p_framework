@@ -6,7 +6,8 @@ from src import data
 def main():
     print('Welcome to the program p_framework')
     # Loader.ExcelLoader()
-    instance = data.data('simon', 'excel')
+    conf = Config('config', 'excel')
+    conf.print_config()
 
 
 if __name__ == '__main__':
