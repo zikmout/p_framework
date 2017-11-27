@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import sklearn
-import data
+import src.data
 
 def load_data(config):
     dic = {

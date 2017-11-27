@@ -1,7 +1,8 @@
 # p_framework implemented at home
 import sys
 import src.loader
-from src import data
+import src.data
+from src.config import Config
 
 def main():
     print('Welcome to the program p_framework')

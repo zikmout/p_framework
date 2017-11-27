@@ -1,9 +1,9 @@
-import numpy as np
+import os
 import pandas as pd
 import sklearn
-import os
+import numpy as np
 import glob, os
-import src.loader
+# import src.loader
 from sklearn import preprocessing as skp
 
 class Data:
@@ -11,7 +11,7 @@ class Data:
     path = '/Users/xxx/Projects/p_framework/data/'
     def __init__(self, config):
         self.config = config
-    def _load_data():
+    def _load_data(self):
         return 'jsonload'
     def get_stats(self):
         raise NotImplementedError()
@@ -27,8 +27,8 @@ class RawData(Data):
 
 class CleanedData(Data):
     def __init__(self, raw_data):
-        super().__init__(raw_data):
-        self>input_df = raw_data.output_df
+        super().__init__(raw_data)
+        self.input_df = raw_data.output_df
     def get_stats(self):
         print('Stats on raw data..........')
 

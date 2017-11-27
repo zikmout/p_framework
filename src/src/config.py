@@ -1,4 +1,6 @@
-class Config:
+import json
+
+class Config():
     ''' bla bla '''
     path = 'C:\\Users\\zak\\Projects'
     def __init__(self, name, fmt):
@@ -7,7 +9,7 @@ class Config:
         self.project_path = Config.path + name + '\\' + name + '.json'
         self._load_config()
 
-    def _load_config():
+    def _load_config(self):
         print('Enter Load project')
         with open(self.project_path) as json_data_file:
             project_file = json.load(json_data_file)
