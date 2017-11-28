@@ -3,6 +3,7 @@ import pandas as pd
 import sklearn
 import src.data
 from src.config import Config
+import glob
 
 def load_data(config):
     dic = {
@@ -18,7 +19,7 @@ def load_data(config):
         raise RuntimeError('No class defined for the format')
     loader = Loader(config)
     input_df = loader.load()
-    return RawData(config, input_df)
+    return R_Data(config, input_df)
 
 class Loader():
     """ Meant to handle loading input_df from different file
@@ -31,21 +32,17 @@ class Loader():
 class ExcelLoader(Loader):
     def __init__(self, config):
         super().__init__(config)
-        #self.load()
 
     def load(self):
-        print("Config.path = {}, name = {}\n".format(Config.path,config.name))
-        #self.input_df = pd.read_excel(Config.path + name + '\\' \
-        #+ name + '.xlsx', index_col=None, header=0)
+        return pd.read_excel(self.config.project_path + self.config.name + '.xlsm', index_col=None, header=0)
 
 class AggregateExcelLoader(Loader):
     """ all files must have same colums for same format """
-    def __init__(self, fmt):
-        super().__init__()
-        self.load()
+    def __init__(self, config):
+        super().__init__(config)
 
     def load(self):
-        allFiles = glob.glob(self.project_path + '\\*.xlsx')
+        allFiles = glob.glob(self.config.project_path + '\\*.xlsx')
         list_ = []
         for file_ in allFiles:
             df = pd.read_excel(file_,index_col=None, header=0)
@@ -53,10 +50,8 @@ class AggregateExcelLoader(Loader):
         self.input_df = pd.concat(list_)
 
 class CSVLoader(Loader):
-    def __init__(self, name):
-        super().__init__()
-        self.load()
+    def __init__(self, config):
+        super().__init__(config)
     def load(self):
-        self.input_df = pd.read_csv(self.project_path + name + '.csv',\
-        index_col=None, header=0)
+        self.input_df = pd.read_csv(self.config.project_path + self.config.name + '.csv', index_col=None, header=0)
     

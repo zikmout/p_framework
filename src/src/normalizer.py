@@ -1,6 +1,8 @@
-class Normalization(Data):
+from src.data import Data
+
+class Normalizer(Data):
     
-    def __init__(self, input_df):
+    def __init__(self, C_Data):
         super().__init__()
         self.output_df = pd.DataFrame()
         self.imitems = pd.Series(list(np.array()))
